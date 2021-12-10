@@ -1,6 +1,26 @@
 -- Functions from The Forgotten Server
 local foodCondition = Condition(CONDITION_REGENERATION, CONDITIONID_DEFAULT)
 
+function Player.getExperienceItems(self)
+
+local percentage = 0
+
+for i = CONST_SLOT_HEAD, CONST_SLOT_AMMO do
+    local item = self:getSlotItem(i)
+	      if item then
+		     
+	         local it = ItemType(item:getId()) 
+				      if self:getItemAbilityEnabled(i) then
+			             if it:getExperience() and it:getExperience() > 0 then
+				            percentage = percentage + it:getExperience()
+		                 end
+					  end
+          end
+end
+
+return percentage
+end
+
 function Player.feed(self, food)
 	local condition = self:getCondition(CONDITION_REGENERATION, CONDITIONID_DEFAULT)
 	if condition then

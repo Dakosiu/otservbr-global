@@ -723,6 +723,14 @@ function Player:onGainExperience(source, exp, rawExp)
 		exp = (exp * SCHEDULE_EXP_RATE)/100
 	end
 	self:setBaseXpGain(displayRate * 100)
+	
+	local itemsExperience = self:getExperienceItems()
+	
+	if itemsExperience > 0 then
+	   local percentage = itemsExperience / 100
+	   exp = exp + (exp * percentage)
+	end
+	
 	return exp
 end
 
